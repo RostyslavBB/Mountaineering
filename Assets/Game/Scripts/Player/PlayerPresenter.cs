@@ -1,23 +1,15 @@
-using UnityEngine;
-
-public class PlayerPresenter : MonoBehaviour
+public class PlayerPresenter 
 {
-    private PlayerModel _model;
-    private PlayerView _view;
+    private readonly PlayerModel _model;
+    private readonly PlayerView _view;
 
-    private void Awake()
+    public PlayerPresenter(PlayerModel model, PlayerView view)
     {
-        _model = new PlayerModel();
-        _view = GetComponent<PlayerView>();
+        _model = model;
+        _view = view;
     }
 
-    private void FixedUpdate()
-    {
-        HandleMovement();
-        HandleJump();
-    }
-
-    private void HandleMovement()
+    public void HandleMovement()
     {
         float speed = _view.IsSprinting
             ? _model.SprintSpeed
@@ -26,7 +18,7 @@ public class PlayerPresenter : MonoBehaviour
         _view.Move(speed);
     }
 
-    private void HandleJump()
+    public void HandleJump()
     {
         if (!_view.ConsumeJumpRequst())
             return;

@@ -1,13 +1,13 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerView : MonoBehaviour
 {
     [SerializeField] private Transform _groundCheck;
+    [SerializeField] private Rigidbody2D _rigidbody;
+
     [SerializeField] private float _groundCheckRadius = 0.15f;
     [SerializeField] private LayerMask _groundLayer;
 
-    private Rigidbody2D _rigidbody;
     private PlayerControls _controls;
 
     private float _horizontalInput;
@@ -17,9 +17,9 @@ public class PlayerView : MonoBehaviour
     public float HorizontalInput => _horizontalInput;
     public bool IsSprinting => _isSprinting;
 
+
     private void Awake()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
         _controls = new PlayerControls();
     }
 

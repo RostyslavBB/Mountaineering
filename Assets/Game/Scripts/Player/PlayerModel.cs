@@ -1,6 +1,4 @@
-using UnityEngine;
-
-public class PlayerModel : MonoBehaviour
+public class PlayerModel 
 {
     public float MoveSpeed { get; private set; } = 5f;
     public float SprintSpeed { get; private set; } = 9f;
