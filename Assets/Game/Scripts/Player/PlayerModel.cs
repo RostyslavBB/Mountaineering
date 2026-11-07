@@ -1,6 +1,13 @@
 public class PlayerModel 
 {
-    public float MoveSpeed { get; private set; } = 5f;
-    public float SprintSpeed { get; private set; } = 9f;
-    public float JumpForce { get; private set; } = 7f;
+    private readonly PlayerSettings settings;
+
+    public float MoveSpeed => settings.MoveSpeed;
+    public float SprintSpeed => settings.SprintSpeed;
+    public float JumpForce => settings.JumpForse;
+
+    public PlayerModel(PlayerSettings settings)
+    {
+        this.settings = settings;
+    }
 }

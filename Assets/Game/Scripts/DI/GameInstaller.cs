@@ -9,6 +9,7 @@ public class GameInstaller : MonoInstaller
     {
         Container.Bind<PlayerModel>().AsSingle();
         Container.Bind<PlayerPresenter>().AsSingle();
+        Container.Bind<PlayerControls>().AsSingle();
         Container.Bind<PlayerView>().FromInstance(_playerView).AsSingle();
     }
 }

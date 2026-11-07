@@ -1,4 +1,5 @@
 using UnityEngine;
+using Zenject;
 
 public class PlayerView : MonoBehaviour
 {
@@ -17,10 +18,10 @@ public class PlayerView : MonoBehaviour
     public float HorizontalInput => _horizontalInput;
     public bool IsSprinting => _isSprinting;
 
-
-    private void Awake()
+    [Inject]
+    public void Construct(PlayerControls controls)
     {
-        _controls = new PlayerControls();
+        _controls = controls;
     }
 
     private void Update()
