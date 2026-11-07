@@ -1,16 +1,14 @@
 using UnityEngine;
+using Zenject;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private PlayerView _playerView;
-
     private PlayerPresenter _playerPresenter;
 
-    private void Awake()
+    [Inject]
+    public void Construct(PlayerPresenter playerPresenter)
     {
-        PlayerModel playerModel = new();
-
-        _playerPresenter = new PlayerPresenter(playerModel, _playerView);
+        _playerPresenter = playerPresenter;
     }
 
     private void FixedUpdate()
