@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76129ab914eb6de49911d4ff4c72e6cf, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSettings
+  <MoveSpeed>k__BackingField: 5
+  <SprintSpeed>k__BackingField: 10
+  <JumpForce>k__BackingField: 7
+  <ClimbSpeed>k__BackingField: 4
+  <GroundCheckRadius>k__BackingField: 0.15

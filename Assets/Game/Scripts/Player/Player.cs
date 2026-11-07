@@ -15,5 +15,6 @@ public class Player : MonoBehaviour
     {
         _playerPresenter.HandleMovement();
         _playerPresenter.HandleJump();
+        _playerPresenter.HandleInteraction();
     }
 }

@@ -7,7 +7,14 @@ using UnityEngine;
 
 public class PlayerSettings : ScriptableObject
 {
-    public float MoveSpeed;
-    public float SprintSpeed;
-    public float JumpForse;
+    [field:SerializeField]
+    public float MoveSpeed { get; private set; }
+    [field:SerializeField]
+    public float SprintSpeed { get; private set; }
+    [field:SerializeField]
+    public float JumpForce { get; private set; }
+    [field: SerializeField]
+    public float ClimbSpeed { get; private set; }
+    [field: SerializeField]
+    public float GroundCheckRadius { get; private set; }
 }
