@@ -30,14 +30,9 @@ public class PlayerView : MonoBehaviour
         : 0f;
 
     [Inject]
-    public void ConstructControls(PlayerControls controls)
+    public void Construct(PlayerControls controls, PlayerModel model)
     {
         _controls = controls;
-    }
-
-    [Inject]
-    public void ConstructModel(PlayerModel model)
-    {
         _model = model;
     }
 

@@ -15,8 +15,7 @@ public class PlayerPresenter
         {
             _view.Climb(_view.ClimbSpeed);
 
-            if (_view.HorizontalInput != 0)
-                StopClimbing();
+            if (_view.HorizontalInput != 0) StopClimbing();
 
             return;
         }
@@ -36,21 +35,16 @@ public class PlayerPresenter
             return;
         }
 
-        if (!_view.ConsumeJumpRequest())
-            return;
+        if (!_view.ConsumeJumpRequest()) return;
 
-        if (!_view.IsGrounded)
-            return;
+        if (!_view.IsGrounded) return;
 
         _view.Jump(_model.JumpForce);
     }
 
     public void HandleInteraction()
     {
-        if (!_view.ConsumeInteractRequest())
-        {
-            return;
-        }
+        if (!_view.ConsumeInteractRequest()) return;
 
         if (_model.State == PlayerState.Climbing)
         {
@@ -58,10 +52,7 @@ public class PlayerPresenter
             return;
         }
 
-        if (!_view.CanClimb)
-        {
-            return;
-        }
+        if (!_view.CanClimb) return;
 
         StartClimbing();
     }
