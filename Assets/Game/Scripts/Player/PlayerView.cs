@@ -16,13 +16,13 @@ public class PlayerView : MonoBehaviour
     private float _verticalInput;
     private float _defaultGravityScale;
 
-    private bool _isSprinting;
+    private bool _isRunning;
     private bool _jumpRequested;
-    private bool _interactRequested;
 
     public float HorizontalInput => _horizontalInput;
     public float VerticalInput => _verticalInput;
-    public bool IsSprinting => _isSprinting;
+    public bool IsRunning => _isRunning;
+    public bool JumpRequested => _jumpRequested;
     public bool CanClimb => _playerClimbing.CanClimb;
     public float ClimbSpeed => 
         _playerClimbing.CurrentClimbable != null
@@ -45,16 +45,11 @@ public class PlayerView : MonoBehaviour
     {
         _horizontalInput = _controls.Player.Move.ReadValue<Vector2>().x;
         _verticalInput = _controls.Player.Move.ReadValue<Vector2>().y;
-        _isSprinting = _controls.Player.Sprint.IsPressed();
+        _isRunning = _controls.Player.Sprint.IsPressed();
 
         if (_controls.Player.Jump.WasPressedThisFrame())
         {
             _jumpRequested = true;
-        }
-
-        if (_controls.Player.Interact.WasPressedThisFrame())
-        {
-            _interactRequested = true;
         }
     }
 
@@ -64,6 +59,7 @@ public class PlayerView : MonoBehaviour
             ? 0f
             : _defaultGravityScale;
 
+        
         StopMovement();
     }
 
@@ -83,7 +79,7 @@ public class PlayerView : MonoBehaviour
     public void Move(float speed)
     {
         _rigidbody.linearVelocity = new Vector2(
-            HorizontalInput * speed,
+            _horizontalInput * speed,
             _rigidbody.linearVelocity.y
         );
     }
@@ -104,14 +100,6 @@ public class PlayerView : MonoBehaviour
         return requested;
     }
     
-    public bool ConsumeInteractRequest()
-    {
-        bool requested = _interactRequested;
-        _interactRequested = false;
-
-        return requested;
-    }
-
     public bool IsGrounded =>
         Physics2D.OverlapCircle(
             _groundCheck.position,

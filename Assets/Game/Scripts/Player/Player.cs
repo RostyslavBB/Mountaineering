@@ -11,10 +11,13 @@ public class Player : MonoBehaviour
         _playerPresenter = playerPresenter;
     }
 
+    private void Update()
+    {
+        _playerPresenter.Update();
+    }
+
     private void FixedUpdate()
     {
-        _playerPresenter.HandleMovement();
-        _playerPresenter.HandleJump();
-        _playerPresenter.HandleInteraction();
+        _playerPresenter.FixedUpdate();
     }
 }

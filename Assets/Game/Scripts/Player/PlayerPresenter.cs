@@ -1,71 +1,30 @@
 public class PlayerPresenter
 {
-    private readonly PlayerModel _model;
-    private readonly PlayerView _view;
+    private readonly PlayerStateMachine _playerStateMachine;
 
-    public PlayerPresenter(PlayerModel model, PlayerView view)
+    public PlayerPresenter(
+        PlayerModel model,
+        PlayerView view,
+        PlayerStateMachine playerStateMachine)
     {
-        _model = model;
-        _view = view;
+        _playerStateMachine = playerStateMachine;
+
+        IdleState idleState = new(
+            model,
+            view,
+            playerStateMachine
+        );
+
+        _playerStateMachine.ChangeState(idleState);
     }
 
-    public void HandleMovement()
+    public void Update()
     {
-        if (_model.State == PlayerState.Climbing)
-        {
-            _view.Climb(_view.ClimbSpeed);
-
-            if (_view.HorizontalInput != 0) StopClimbing();
-
-            return;
-        }
-
-        float speed = _view.IsSprinting
-            ? _model.SprintSpeed
-            : _model.MoveSpeed;
-
-        _view.Move(speed);
+        _playerStateMachine.Update();
     }
 
-    public void HandleJump()
+    public void FixedUpdate()
     {
-        if (_model.State == PlayerState.Climbing)
-        {
-            _view.ConsumeJumpRequest();
-            return;
-        }
-
-        if (!_view.ConsumeJumpRequest()) return;
-
-        if (!_view.IsGrounded) return;
-
-        _view.Jump(_model.JumpForce);
-    }
-
-    public void HandleInteraction()
-    {
-        if (!_view.ConsumeInteractRequest()) return;
-
-        if (_model.State == PlayerState.Climbing)
-        {
-            StopClimbing();
-            return;
-        }
-
-        if (!_view.CanClimb) return;
-
-        StartClimbing();
-    }
-
-    private void StartClimbing()
-    {
-        _model.SetState(PlayerState.Climbing);
-        _view.SetClimbing(true);
-    }
-
-    private void StopClimbing()
-    {
-        _model.SetState(PlayerState.Idle);
-        _view.SetClimbing(false);
+        _playerStateMachine.FixedUpdate();
     }
 }
