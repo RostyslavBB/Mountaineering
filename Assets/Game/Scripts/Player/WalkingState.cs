@@ -22,24 +22,11 @@ public class WalkingState : PlayerState
 
         if (TryJump()) return;
 
-        if (View.HorizontalInput == 0)
-        {
-            StateMachine.ChangeState(
-                new IdleState(Model, View, StateMachine)
-            );
+        if (TryRunning()) return;
 
-            return;
-        }
-
-        if (View.IsRunning)
-        {
-            StateMachine.ChangeState(
-                new RunningState(Model, View, StateMachine)
-            );
-
-            return;
-        }
+        if (TryIdle()) return;
     }
+
     public override void FixedUpdate()
     {
         View.Move(Model.MoveSpeed);

@@ -8,6 +8,15 @@ public class ClimbingUpState : ClimbingState
     {
     }
 
+    public override void Update()
+    {
+        if (TryClimbDown()) return;
+
+        if (TryClimbIdle()) return;
+
+        base.Update();
+    }
+
     public override void FixedUpdate()
     {
         View.Climb(Model.ClimbSpeed);

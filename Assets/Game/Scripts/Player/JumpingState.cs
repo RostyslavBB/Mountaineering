@@ -28,30 +28,9 @@ public class JumpingState : PlayerState
 
         if (_hasLeftGround && View.IsGrounded)
         {
+            if (TryWalk()) return;
 
-            if (View.HorizontalInput != 0)
-            {
-                if (View.IsRunning)
-                {
-                    StateMachine.ChangeState(
-                        new RunningState(Model, View, StateMachine)
-                    );
-                }
-
-                else
-                {
-                    StateMachine.ChangeState(
-                        new WalkingState(Model, View, StateMachine)
-                    );
-                }
-            }
-
-            else
-            {
-                StateMachine.ChangeState(
-                    new IdleState(Model, View, StateMachine)
-                );
-            }
+            if (TryIdle()) return;
         }
     }
 

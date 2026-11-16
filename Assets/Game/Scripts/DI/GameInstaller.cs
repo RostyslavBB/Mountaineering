@@ -4,6 +4,7 @@ using UnityEngine;
 public class GameInstaller : MonoInstaller
 {
     [SerializeField] private PlayerView _playerView;
+    [SerializeField] private PlayerAnimator _playerAnimator;
 
     public override void InstallBindings()
     {
@@ -15,6 +16,10 @@ public class GameInstaller : MonoInstaller
 
         Container.Bind<PlayerView>()
             .FromInstance(_playerView)
+            .AsSingle();
+
+        Container.Bind<PlayerAnimator>()
+            .FromInstance(_playerAnimator)
             .AsSingle();
     }
 }

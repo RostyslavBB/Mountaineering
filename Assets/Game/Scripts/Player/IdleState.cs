@@ -23,15 +23,9 @@ public class IdleState : PlayerState
 
         if (TryJump()) return;
 
-        if (View.HorizontalInput != 0)
-        {
-            StateMachine.ChangeState(
-                new WalkingState(Model, View, StateMachine)
-            );
-
-            return;
-        }
+        if (TryWalk()) return;
     }
+
     public override void FixedUpdate()
     {
     }

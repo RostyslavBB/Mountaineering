@@ -4,7 +4,7 @@ public class PlayerStateMachine
 
     public void ChangeState(IPlayerState newState)
     {
-        if (CurrentState == newState) return;
+        if (CurrentState?.GetType() == newState.GetType()) return;
 
         CurrentState?.Exit();
 

@@ -30,7 +30,10 @@ public class PlayerView : MonoBehaviour
         : 0f;
 
     [Inject]
-    public void Construct(PlayerControls controls, PlayerModel model)
+    public void Construct(
+        PlayerControls controls, 
+        PlayerModel model,
+        PlayerAnimator playerAnimator)
     {
         _controls = controls;
         _model = model;
@@ -67,7 +70,7 @@ public class PlayerView : MonoBehaviour
     {
         _rigidbody.linearVelocity = new Vector2(
             0f,
-            speed * _verticalInput
+            speed
         );
     }
 

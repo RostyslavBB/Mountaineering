@@ -7,4 +7,13 @@ public class ClimbingIdleState : ClimbingState
         : base(playerModel, playerView, playerStateMachine)
     {
     }
+
+    public override void Update()
+    {
+        if (TryClimbUp()) return;
+
+        if (TryClimbDown()) return;
+
+        base.Update();
+    }
 }

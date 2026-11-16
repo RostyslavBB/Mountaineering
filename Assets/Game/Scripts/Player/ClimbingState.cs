@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public abstract class ClimbingState : PlayerState
 {
     public ClimbingState(
@@ -22,47 +20,16 @@ public abstract class ClimbingState : PlayerState
 
     public override void Update()
     {
-        if (!View.CanClimb)
-        {
-            StateMachine.ChangeState(
-                new IdleState(Model, View, StateMachine)
-            );
-
-            return;
-        }
-
         if (TryJump()) return;
 
-        if (View.HorizontalInput != 0)
+        if (!View.CanClimb)
         {
-            StateMachine.ChangeState(
-                new WalkingState(Model, View, StateMachine)
-            );
-
+            TryIdle();
+            
             return;
         }
 
-        if (View.VerticalInput > 0.1f
-            && StateMachine.CurrentState is not ClimbingUpState)
-        {
-            StateMachine.ChangeState(
-                new ClimbingUpState(Model, View, StateMachine)
-            );
-        }
-        else if (View.VerticalInput < -0.1f
-            && StateMachine.CurrentState is not ClimbingDownState)
-        {
-            StateMachine.ChangeState(
-                new ClimbingDownState(Model, View, StateMachine)
-            );
-        }
-        else if (Mathf.Abs(View.VerticalInput) <= 0.1f
-            && StateMachine.CurrentState is not ClimbingIdleState)
-        {
-            StateMachine.ChangeState(
-                new ClimbingIdleState(Model, View, StateMachine)
-            );
-        }
+        if (TryWalk()) return;
     }
 
     public override void FixedUpdate()
