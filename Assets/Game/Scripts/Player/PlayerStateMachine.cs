@@ -11,6 +11,8 @@ public class PlayerStateMachine
         CurrentState = newState;
 
         CurrentState.Enter();
+
+        UnityEngine.Debug.Log(newState);
     }
 
     public void Update()

@@ -1,17 +1,20 @@
 public abstract class PlayerState : IPlayerState
 {
-    protected readonly PlayerModel Model;
     protected readonly PlayerView View;
+    protected readonly PlayerModel Model;
     protected readonly PlayerStateMachine StateMachine;
+    protected readonly PlayerAnimatorController AnimatorController;
 
     protected PlayerState(
-        PlayerModel playerModel,
         PlayerView playerView,
-        PlayerStateMachine playerStateMachine)
+        PlayerModel playerModel,
+        PlayerStateMachine playerStateMachine,
+        PlayerAnimatorController playerAnimatorController)
     {
-        Model = playerModel;
         View = playerView;
+        Model = playerModel;
         StateMachine = playerStateMachine;
+        AnimatorController = playerAnimatorController;
     }
 
     public abstract void Enter();
@@ -22,49 +25,49 @@ public abstract class PlayerState : IPlayerState
     protected void ChangeToIdleState()
     {
         StateMachine.ChangeState(
-            new IdleState(Model, View, StateMachine)
+            new IdleState(View, Model, StateMachine, AnimatorController)
         );
     }
     
     protected void ChangeToWalkingState()
     {
         StateMachine.ChangeState(
-            new WalkingState(Model, View, StateMachine)
+            new WalkingState(View, Model, StateMachine, AnimatorController)
         );
     }
     
     protected void ChangeToRunningState()
     {
         StateMachine.ChangeState(
-            new RunningState(Model, View, StateMachine)
+            new RunningState(View, Model, StateMachine, AnimatorController)
         );
     }
     
     protected void ChangeToJumpingState()
     {
         StateMachine.ChangeState(
-            new JumpingState(Model, View, StateMachine)
+            new JumpingState(View, Model, StateMachine, AnimatorController)
         );
     }
     
     protected void ChangeToClimbingIdleState()
     {
         StateMachine.ChangeState(
-            new ClimbingIdleState(Model, View, StateMachine)
+            new ClimbingIdleState(View, Model, StateMachine, AnimatorController)
         );
     }
     
     protected void ChangeToClimbingUpState()
     {
         StateMachine.ChangeState(
-            new ClimbingUpState(Model, View, StateMachine)
+            new ClimbingUpState(View, Model, StateMachine, AnimatorController)
         );
     }
     
     protected void ChangeToClimbingDownState()
     {
         StateMachine.ChangeState(
-            new ClimbingDownState(Model, View, StateMachine)
+            new ClimbingDownState(View, Model, StateMachine, AnimatorController)
         );
     }
 
@@ -82,7 +85,8 @@ public abstract class PlayerState : IPlayerState
 
     protected bool TryWalk()
     {
-        if (View.HorizontalInput != 0)
+        if (View.HorizontalInput != 0
+            && !View.IsRunning)
         {
             ChangeToWalkingState();
 

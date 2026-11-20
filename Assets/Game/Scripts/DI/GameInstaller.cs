@@ -4,7 +4,7 @@ using UnityEngine;
 public class GameInstaller : MonoInstaller
 {
     [SerializeField] private PlayerView _playerView;
-    [SerializeField] private PlayerAnimator _playerAnimator;
+    [SerializeField] private PlayerAnimatorController _playerAnimatorController;
 
     public override void InstallBindings()
     {
@@ -18,8 +18,8 @@ public class GameInstaller : MonoInstaller
             .FromInstance(_playerView)
             .AsSingle();
 
-        Container.Bind<PlayerAnimator>()
-            .FromInstance(_playerAnimator)
+        Container.Bind<PlayerAnimatorController>()
+            .FromInstance(_playerAnimatorController)
             .AsSingle();
     }
 }

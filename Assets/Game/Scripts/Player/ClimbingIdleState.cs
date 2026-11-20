@@ -1,11 +1,24 @@
 public class ClimbingIdleState : ClimbingState
 {
     public ClimbingIdleState(
-        PlayerModel playerModel, 
-        PlayerView playerView, 
-        PlayerStateMachine playerStateMachine)
-        : base(playerModel, playerView, playerStateMachine)
+        PlayerView playerView,
+        PlayerModel playerModel,
+        PlayerStateMachine playerStateMachine,
+        PlayerAnimatorController playerAnimatorController)
+        : base(playerView, playerModel, playerStateMachine, playerAnimatorController)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+
+        AnimatorController.SetClimbY(0f);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
     }
 
     public override void Update()

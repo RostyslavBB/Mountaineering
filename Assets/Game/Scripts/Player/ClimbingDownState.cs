@@ -1,11 +1,26 @@
 public class ClimbingDownState : ClimbingState
 {
     public ClimbingDownState(
-        PlayerModel playerModel, 
-        PlayerView playerView, 
-        PlayerStateMachine playerStateMachine)
-        : base(playerModel, playerView, playerStateMachine)
+        PlayerView playerView,
+        PlayerModel playerModel,
+        PlayerStateMachine playerStateMachine,
+        PlayerAnimatorController playerAnimatorController)
+        : base(playerView, playerModel, playerStateMachine, playerAnimatorController)
     {
+    }
+
+    public override void Enter()
+    {
+        base.Enter();
+
+        AnimatorController.SetClimbY(-1f);
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+
+        AnimatorController.SetClimbY(0f);
     }
 
     public override void Update()

@@ -1,10 +1,11 @@
 public class IdleState : PlayerState
 {
     public IdleState(
-        PlayerModel playerModel,
         PlayerView playerView,
-        PlayerStateMachine playerStateMachine)
-        : base(playerModel, playerView, playerStateMachine)
+        PlayerModel playerModel,
+        PlayerStateMachine playerStateMachine,
+        PlayerAnimatorController playerAnimatorController)
+        : base(playerView, playerModel, playerStateMachine, playerAnimatorController)
     {
     }
 
@@ -24,6 +25,8 @@ public class IdleState : PlayerState
         if (TryJump()) return;
 
         if (TryWalk()) return;
+
+        if (TryRunning()) return;
     }
 
     public override void FixedUpdate()

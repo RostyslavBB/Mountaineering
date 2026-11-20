@@ -1,37 +1,45 @@
 public class RunningState : PlayerState
 {
     public RunningState(
-        PlayerModel playerModel, 
-        PlayerView playerView, 
-        PlayerStateMachine playerStateMachine)
-        : base(playerModel, playerView, playerStateMachine)
+        PlayerView playerView,
+        PlayerModel playerModel,
+        PlayerStateMachine playerStateMachine,
+        PlayerAnimatorController playerAnimatorController)
+        : base(playerView, playerModel, playerStateMachine, playerAnimatorController)
     {
     }
 
     public override void Enter()
     {
+        AnimatorController.SetRunning(true);
+
+        AnimatorController.SetMoveSpeed(1f);
     }
 
     public override void Exit()
     {
+        AnimatorController.SetRunning(false);
+
+        AnimatorController.SetMoveSpeed(0f);
     }
 
     public override void Update()
     {
-        if (TryClimb()) return;
-
         if (TryJump()) return;
 
-        if (!View.IsRunning)
-        {
-            if (TryWalk()) return;
+        if (TryClimb()) return;
 
-            if (TryIdle()) return;
-        }
+        if (TryWalk()) return;
+
+        if (TryRunning()) return;
+
+        if (TryIdle()) return;
     }
 
     public override void FixedUpdate()
     {
         View.Move(Model.SprintSpeed);
+
+        AnimatorController.SetDirection(View.HorizontalInput);
     }
 }

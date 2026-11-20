@@ -33,7 +33,7 @@ public class PlayerView : MonoBehaviour
     public void Construct(
         PlayerControls controls, 
         PlayerModel model,
-        PlayerAnimator playerAnimator)
+        PlayerAnimatorController playerAnimator)
     {
         _controls = controls;
         _model = model;
@@ -50,7 +50,8 @@ public class PlayerView : MonoBehaviour
         _verticalInput = _controls.Player.Move.ReadValue<Vector2>().y;
         _isRunning = _controls.Player.Sprint.IsPressed();
 
-        if (_controls.Player.Jump.WasPressedThisFrame())
+        if (_controls.Player.Jump.WasPressedThisFrame()
+            && (IsGrounded || CanClimb))
         {
             _jumpRequested = true;
         }

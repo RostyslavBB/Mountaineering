@@ -3,10 +3,11 @@ public class JumpingState : PlayerState
     private bool _hasLeftGround;
 
     public JumpingState(
-        PlayerModel playerModel, 
-        PlayerView playerView, 
-        PlayerStateMachine playerStateMachine) 
-        : base(playerModel, playerView, playerStateMachine)
+        PlayerView playerView,
+        PlayerModel playerModel,
+        PlayerStateMachine playerStateMachine,
+        PlayerAnimatorController playerAnimatorController)
+        : base(playerView, playerModel, playerStateMachine, playerAnimatorController)
     {
     }
 
@@ -14,10 +15,17 @@ public class JumpingState : PlayerState
     {
         _hasLeftGround = false;
         View.Jump(Model.JumpForce);
+
+        AnimatorController.SetJumping(true);
+
+        AnimatorController.SetGrounded(false);
     }
 
     public override void Exit()
     {
+        AnimatorController.SetJumping(false);
+
+        AnimatorController.SetGrounded(true);
     }
 
     public override void Update()
@@ -30,6 +38,8 @@ public class JumpingState : PlayerState
         {
             if (TryWalk()) return;
 
+            if (TryRunning()) return;
+
             if (TryIdle()) return;
         }
     }
@@ -40,6 +50,8 @@ public class JumpingState : PlayerState
             ? Model.SprintSpeed
             : Model.MoveSpeed;
 
-        View.Move( speed );
+        View.Move(speed);
+
+        AnimatorController.SetDirection(View.HorizontalInput);
     }
 }

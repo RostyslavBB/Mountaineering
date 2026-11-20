@@ -1,21 +1,26 @@
 public abstract class ClimbingState : PlayerState
 {
     public ClimbingState(
-        PlayerModel playerModel, 
-        PlayerView playerView, 
-        PlayerStateMachine playerStateMachine)
-        : base(playerModel, playerView, playerStateMachine)
+        PlayerView playerView,
+        PlayerModel playerModel,
+        PlayerStateMachine playerStateMachine,
+        PlayerAnimatorController playerAnimatorController)
+        : base(playerView, playerModel, playerStateMachine, playerAnimatorController)
     {
     }
 
     public override void Enter()
     {
         View.SetClimbing(true);
+
+        AnimatorController.SetClimbing(true);
     }
 
     public override void Exit()
     {
         View.SetClimbing(false);
+
+        AnimatorController.SetClimbing(false);
     }
 
     public override void Update()
@@ -23,13 +28,11 @@ public abstract class ClimbingState : PlayerState
         if (TryJump()) return;
 
         if (!View.CanClimb)
-        {
-            TryIdle();
-            
-            return;
-        }
-
+            { TryIdle(); return; }
+        
+        
         if (TryWalk()) return;
+
     }
 
     public override void FixedUpdate()

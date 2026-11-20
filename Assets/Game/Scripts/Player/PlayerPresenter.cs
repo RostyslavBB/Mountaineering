@@ -1,30 +1,31 @@
 public class PlayerPresenter
 {
-    private readonly PlayerStateMachine _playerStateMachine;
+    private readonly PlayerStateMachine _stateMachine;
 
     public PlayerPresenter(
-        PlayerModel model,
         PlayerView view,
-        PlayerStateMachine playerStateMachine)
+        PlayerModel model,
+        PlayerStateMachine stateMachine,
+        PlayerAnimatorController animatorController)
     {
-        _playerStateMachine = playerStateMachine;
+        _stateMachine = stateMachine;
 
         IdleState idleState = new(
-            model,
             view,
-            playerStateMachine
-        );
+            model,
+            stateMachine,
+            animatorController);
 
-        _playerStateMachine.ChangeState(idleState);
+        _stateMachine.ChangeState(idleState);
     }
 
     public void Update()
     {
-        _playerStateMachine.Update();
+        _stateMachine.Update();
     }
 
     public void FixedUpdate()
     {
-        _playerStateMachine.FixedUpdate();
+        _stateMachine.FixedUpdate();
     }
 }
