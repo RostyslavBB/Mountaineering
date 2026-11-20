@@ -125,19 +125,9 @@ public abstract class PlayerState : IPlayerState
     {
         if (View.CanClimb)
         {
-            if (View.VerticalInput > 0)
-            {
-                ChangeToClimbingUpState();
+            if (TryClimbUp()) return true;
 
-                return true;
-            }
-
-            if (View.VerticalInput < 0)
-            {
-                ChangeToClimbingDownState();
-
-                return true;
-            }
+            if (TryClimbDown()) return true;
         }
 
         return false;
@@ -146,7 +136,8 @@ public abstract class PlayerState : IPlayerState
     protected bool TryClimbUp()
     {
         if (StateMachine.CurrentState is not ClimbingUpState
-            && View.VerticalInput > 0.1f)
+            && View.VerticalInput > 0.1f
+            && View.ClimbUpSpeed > 0)
         {
             ChangeToClimbingUpState();
 
@@ -159,7 +150,8 @@ public abstract class PlayerState : IPlayerState
     protected bool TryClimbDown()
     {
         if (StateMachine.CurrentState is not ClimbingDownState
-            && View.VerticalInput < -0.1f)
+            && View.VerticalInput < -0.1f
+            && !View.IsGrounded)
         {
             ChangeToClimbingDownState();
 
@@ -173,7 +165,8 @@ public abstract class PlayerState : IPlayerState
     {
 
         if (StateMachine.CurrentState is not ClimbingIdleState
-            && UnityEngine.Mathf.Abs(View.VerticalInput) < 0.1f)
+            && (UnityEngine.Mathf.Abs(View.VerticalInput) < 0.1f
+            || (View.ClimbUpSpeed == 0 || View.IsGrounded)))
         {
             ChangeToClimbingIdleState();
 

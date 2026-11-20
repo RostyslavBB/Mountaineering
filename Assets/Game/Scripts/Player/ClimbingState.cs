@@ -29,9 +29,6 @@ public abstract class ClimbingState : PlayerState
 
         if (!View.CanClimb)
             { TryIdle(); return; }
-        
-        
-        if (TryWalk()) return;
 
     }
 

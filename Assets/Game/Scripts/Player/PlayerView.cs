@@ -6,6 +6,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Transform _groundCheck;
     [SerializeField] private Rigidbody2D _rigidbody;
     [SerializeField] private PlayerClimbing _playerClimbing;
+    [SerializeField] private PlayerClimbLimit _playerClimbLimit;
 
     [SerializeField] private LayerMask _groundLayer;
 
@@ -20,12 +21,22 @@ public class PlayerView : MonoBehaviour
     private bool _jumpRequested;
 
     public float HorizontalInput => _horizontalInput;
+
     public float VerticalInput => _verticalInput;
+
     public bool IsRunning => _isRunning;
+
     public bool JumpRequested => _jumpRequested;
+
     public bool CanClimb => _playerClimbing.CanClimb;
-    public float ClimbSpeed => 
-        _playerClimbing.CurrentClimbable != null
+
+    public float ClimbUpSpeed => 
+        _playerClimbLimit.CanClimb
+        ? _model.ClimbSpeed
+        : 0f;
+
+    public float ClimbDownSpeed => 
+        _playerClimbing.CanClimb
         ? _model.ClimbSpeed
         : 0f;
 

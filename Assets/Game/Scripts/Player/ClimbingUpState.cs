@@ -34,6 +34,6 @@ public class ClimbingUpState : ClimbingState
 
     public override void FixedUpdate()
     {
-        View.Climb(Model.ClimbSpeed);
+        View.Climb(View.ClimbUpSpeed);
     }
 }
