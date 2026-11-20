@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
 public class GeneralButtonScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private float _hoverScale = 1.15f;
@@ -9,6 +10,8 @@ public class GeneralButtonScript : MonoBehaviour, IPointerEnterHandler, IPointer
 
     private Vector3 _originalScale;
     private Vector3 _targetScale;
+
+    protected bool _mouseOnButton = false;
 
     protected virtual void Awake()
     {
@@ -30,13 +33,15 @@ public class GeneralButtonScript : MonoBehaviour, IPointerEnterHandler, IPointer
     }
 
 
-    public virtual void OnPointerEnter(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         _targetScale = _originalScale * _hoverScale;
+        _mouseOnButton = true;
     }
 
-    public virtual void OnPointerExit(PointerEventData eventData)
+    public void OnPointerExit(PointerEventData eventData)
     {
         _targetScale = _originalScale;
+        _mouseOnButton = false;
     }
 }
