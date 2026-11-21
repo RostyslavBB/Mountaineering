@@ -23,6 +23,10 @@ public class ClimbingIdleState : ClimbingState
 
     public override void Update()
     {
+        if (TryClimbOntoLedge()) return;
+
+        if (TryStandOnGround()) return;
+
         if (TryClimbUp()) return;
 
         if (TryClimbDown()) return;

@@ -17,15 +17,11 @@ public class JumpingState : PlayerState
         View.Jump(Model.JumpForce);
 
         AnimatorController.SetJumping(true);
-
-        AnimatorController.SetGrounded(false);
     }
 
     public override void Exit()
     {
         AnimatorController.SetJumping(false);
-
-        AnimatorController.SetGrounded(true);
     }
 
     public override void Update()

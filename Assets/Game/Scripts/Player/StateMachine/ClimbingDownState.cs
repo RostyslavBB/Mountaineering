@@ -25,6 +25,8 @@ public class ClimbingDownState : ClimbingState
 
     public override void Update()
     {
+        if (TryStandOnGround()) return;
+
         if (TryClimbUp()) return;
 
         if (TryClimbIdle()) return;
