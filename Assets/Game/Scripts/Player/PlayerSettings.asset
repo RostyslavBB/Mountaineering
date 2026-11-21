@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSettings
   <MoveSpeed>k__BackingField: 3
   <SprintSpeed>k__BackingField: 6
-  <JumpForce>k__BackingField: 13
+  <JumpForce>k__BackingField: 10
   <ClimbSpeed>k__BackingField: 4
   <GroundCheckRadius>k__BackingField: 0.15
