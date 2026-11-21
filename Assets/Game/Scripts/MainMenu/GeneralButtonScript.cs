@@ -37,11 +37,13 @@ public class GeneralButtonScript : MonoBehaviour, IPointerEnterHandler, IPointer
     {
         _targetScale = _originalScale * _hoverScale;
         _mouseOnButton = true;
+        Debug.Log($"Mouse entered button: {gameObject.name}, {_mouseOnButton}");
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         _targetScale = _originalScale;
         _mouseOnButton = false;
+        Debug.Log($"Mouse exited button: {gameObject.name}, {_mouseOnButton}");
     }
 }
