@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 public class SettingsButtonScript : GeneralButtonScript
 {
     [SerializeField] private Canvas _settingsCanvas;
